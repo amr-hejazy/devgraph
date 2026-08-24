@@ -1,0 +1,14 @@
+{
+  "style": "default",
+  "darkMode": "class",
+  "prefix": "",
+  "manifest": {
+    "button": {
+      "name": "button",
+      "path": "/F/revising/devgraph/src/components/ui/button.tsx",
+      "content": "<component_content>",
+      "variant": "default",
+      "type": "ui"
+    }
+  }
+}
