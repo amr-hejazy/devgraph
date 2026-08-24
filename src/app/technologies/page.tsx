@@ -1,9 +1,10 @@
 "use client";
 
-import { TechnologyBadge } from "@/components/common/technology-badge";
+import { TechnologyCard } from "@/components/common/technology-card";
 import { PageHeader } from "@/components/common/page-header";
 import { ErrorState } from "@/components/common/error-state";
 import { EmptyState } from "@/components/common/empty-state";
+import { CardGridSkeleton } from "@/components/common/loading";
 import { useApi } from "@/components/common/use-api";
 import type { Technology } from "@/types/graph";
 
@@ -19,17 +20,13 @@ export default function TechnologiesPage() {
       {error ? (
         <ErrorState message={error} />
       ) : loading ? (
-        <div className="flex flex-wrap gap-2">
-          {Array.from({ length: 12 }).map((_, i) => (
-            <div key={i} className="h-7 w-24 animate-pulse rounded-full bg-muted" />
-          ))}
-        </div>
+        <CardGridSkeleton count={12} />
       ) : !data || data.length === 0 ? (
         <EmptyState title="No technologies found" description="The graph database returned no technologies." />
       ) : (
-        <div className="flex flex-wrap gap-2">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {data.map((t) => (
-            <TechnologyBadge key={t.id} id={t.id} name={t.name} />
+            <TechnologyCard key={t.id} technology={t} />
           ))}
         </div>
       )}
