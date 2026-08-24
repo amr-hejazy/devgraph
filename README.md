@@ -224,6 +224,7 @@ Database failures return a safe `503` with no credentials or stack traces.
 
 The app is a standard Next.js project and deploys to Vercel with no custom
 configuration (a `vercel.json` is included for clarity).
+Live at: https://devgraph-roan.vercel.app/
 
 ## Screenshots
 Homepage
