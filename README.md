@@ -159,8 +159,6 @@ RETURN DISTINCT other ORDER BY other.name LIMIT 20
 - Neo4j JavaScript driver (`neo4j-driver`) → CognoDB (Bolt + Cypher)
 - ESLint
 
-No ORM, no query builder — the driver talks to CognoDB directly.
-
 ## Local Setup
 
 ```bash
@@ -169,15 +167,6 @@ cp .env.example .env.local   # then fill in your CognoDB credentials
 npm run seed                 # load fictional data into CognoDB
 npm run dev                  # http://localhost:3000
 ```
-
-## CognoDB Setup
-
-1. Create a CognoDB instance at [console.cognodb.com](https://console.cognodb.com).
-2. Copy the `bolt+s://...` URI and the password (shown once).
-3. The username is `cognodb`.
-4. Put these into `.env.local`.
-
-CognoDB speaks Bolt and Cypher, so the official Neo4j driver connects unchanged.
 
 ## Environment Variables
 
@@ -188,9 +177,6 @@ COGNODB_URI=
 COGNODB_USERNAME=cognodb
 COGNODB_PASSWORD=
 ```
-
-Never hard-code credentials and never commit `.env.local`. `.env.example` is
-committed as a safe template.
 
 ## Seed Data
 
@@ -239,33 +225,18 @@ Database failures return a safe `503` with no credentials or stack traces.
 The app is a standard Next.js project and deploys to Vercel with no custom
 configuration (a `vercel.json` is included for clarity).
 
-### Deploy to Vercel
-
-1. Push this repo to GitHub.
-2. In Vercel, import the repository (framework auto-detected as Next.js).
-3. Add the three environment variables (they are **not** committed — `.env.local` is gitignored):
-
-| Variable | Value |
-|----------|-------|
-| `COGNODB_URI` | Your `bolt+s://...` URI |
-| `COGNODB_USERNAME` | `cognodb` |
-| `COGNODB_PASSWORD` | The password shown once at instance creation |
-
-Set them for **Production**, **Preview**, and **Development** environments.
-4. Deploy. The app reaches CognoDB at runtime; no database connection is needed at build time (pages are static shells, API routes are dynamic).
-
-> Local alternative: set the same three vars in `.env.local` and run `npm run dev`.
-
 ## Screenshots
+Homepage
+![Dashboard](public/screenshots/dashboard.png)
 
-Place screenshots in `public/screenshots/` and reference them here:
+Developer Details
+![Developer detail](public/screenshots/developer.png)
 
-- `dashboard.png` — homepage with stats and featured entities
-- `developer.png` — developer detail page
-- `connections.png` — Find Connections showcase
-- `search.png` — global search results
+Find Connections
+![Find Connections](public/screenshots/connections.png)
 
-To capture: run `npm run dev`, then screenshot the listed routes.
+Search
+![Search](public/screenshots/search.png)
 
 ## Project Structure
 
