@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Network, Search } from "lucide-react";
@@ -16,7 +16,11 @@ const NAV = [
 
 export function SiteHeader() {
   const router = useRouter();
+  const pathname = usePathname();
   const [q, setQ] = useState("");
+
+  // Hide the global search on pages that render their own search input.
+  const hideSearch = pathname === "/" || pathname === "/search";
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -31,16 +35,18 @@ export function SiteHeader() {
           <Network className="size-5 text-primary" />
           DevGraph
         </Link>
-        <form onSubmit={submit} className="relative w-full sm:max-w-sm">
-          <Search className="pointer-events-none absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
-            placeholder="Search developers, projects, technologies..."
-            className="pl-8"
-            aria-label="Global search"
-          />
-        </form>
+        {!hideSearch && (
+          <form onSubmit={submit} className="relative w-full sm:max-w-sm">
+            <Search className="pointer-events-none absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+              placeholder="Search developers, projects, technologies..."
+              className="pl-8"
+              aria-label="Global search"
+            />
+          </form>
+        )}
         <nav className="flex items-center gap-1 text-sm">
           {NAV.map((n) => (
             <Link
